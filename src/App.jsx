@@ -1,36 +1,50 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import React, { useEffect, useState } from 'react'
+import Search from './components/Search'
 
-const Card = ({ title }) => {
-  const [hasLiked, setHasLiked] = useState(false);
-  const [count, setCount] = useState(0);
+const API_BASE_URL = 'https://api.themoviedb.org/3';
 
-  useEffect(() => {
-    console.log(`${title} has been liked: ${ hasLiked }`);
-  }, [hasLiked]);
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-  useEffect(() => {
-    console.log('Card Rendered');
-  });
-
-  return (
-    <div className='card' onClick={ () => setCount(count + 1) }>
-      <h2>{ title } <br /> { count || null }</h2>
-      <button onClick={ () => setHasLiked(!hasLiked) }>
-        { hasLiked ? '💖' : '🤍' }
-      </button>
-    </div>
-  )
+const API_OPTIONS = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${API_KEY}`
+    }
 }
 
 const App = () => {
-  return (
-    <div className="card-container">
-      <Card title = "Avengers: Infinity War" rating = { 5 } isCool = { true } />
-      <Card title = "The Lion King" />
-      <Card title = "Avatar: The Way of Water" />
-    </div>
-  )
+    const [searchTerm, setSearchTerm] = useState('');
+    const [errorMessage, setErrorMessage] = useState('')
+
+    const fetchMovies = async () => {
+        try {
+
+        } catch (error) {
+            console.error(`Error fetching movies: ${ error }`);
+            setErrorMessage('Error fetching movies. Please try again later.');
+        }
+    }
+
+    useEffect(() => {
+
+    }, []);
+
+    return (
+    <main>
+        <div className="pattern" />
+
+        <div className="wrapper">
+            <header>
+                <img src="./hero.png" alt="Hero Banner"></img>
+                <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy without the Hassle</h1>
+            </header>
+
+            <Search searchTerm={ searchTerm } setSearchTerm={ setSearchTerm } />
+            <h1 className="text-white"> { searchTerm } </h1>
+        </div>
+    </main>
+    )
 }
 
 export default App
