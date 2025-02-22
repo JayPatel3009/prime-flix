@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Search from './components/Search'
 import Spinner from './components/Spinner';
 import MovieCard from './components/MovieCard';
+import { BASE_URL } from './utils';
 import { useDebounce } from 'react-use';
 import { getTrendingMovies, updateSearchCount } from './appwrite';
 
@@ -89,8 +90,8 @@ const App = () => {
 
         <div className="wrapper">
             <header>
-                <img src="./text-logo.png" alt="Logo Text"></img>
-                <img src="./hero.png" alt="Hero Banner"></img>
+                <img src={`${BASE_URL}/text-logo.png`} alt="Logo Text"></img>
+                <img src={`${BASE_URL}/hero.png`} alt="Hero Banner"></img>
                 <h1>Find <span className="text-gradient">Movies</span> You'll Enjoy without the Hassle</h1>
                 <Search searchTerm={ searchTerm } setSearchTerm={ setSearchTerm } />
             </header>
