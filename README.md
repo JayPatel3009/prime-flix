@@ -1,6 +1,8 @@
-# Prime Flix
+# PrimeFlix
 
-Prime Flix is a React application for browsing and discovering movies and TV shows. It provides users with detailed information about their favorite films and series, including ratings, reviews, and trailers. Also allows users to store their search history and displays the top 5 trending movies based on user searches.
+PrimeFlix is a React application for browsing and discovering movies and TV shows. It provides users with detailed information about their favorite films and series, including ratings, reviews, and trailers. Also allows users to store their search history and displays the top 5 trending movies based on user searches.
+
+PrimeFlix is primarily built with React but also leverages Tailwind CSS for a sleek and responsive UI and integrates Appwrite web services for backend functionality.
 
 ## Features
 
@@ -17,7 +19,7 @@ To get started with Prime Flix, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/prime-flix.git
+    git clone https://github.com/JayPatel3009/prime-flix.git
     ```
 2. Navigate to the project directory:
     ```bash
