@@ -4,6 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/prime-flix',
+  base: '/',
   plugins: [react(), tailwindcss()],
 })
