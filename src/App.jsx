@@ -23,8 +23,8 @@ const AppContent = () => {
       <div className="pattern" />
       <div className="wrapper">
         <header>
-          <img src={`text-logo.png`} alt="Logo Text" />
-          <img src={`hero.png`} alt="Hero Banner" />
+          <img src={`${BASE_URL}/text-logo.png`} alt="Logo Text" />
+          <img src={`${BASE_URL}/hero.png`} alt="Hero Banner" />
           <h1>
             Find <span className="text-gradient">Movies</span> You'll Enjoy without the Hassle
           </h1>
