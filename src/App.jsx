@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext, useState } from 'react';
 import { useDebounce } from 'react-use';
 import { MoviesProvider, MoviesContext } from './context/MoviesContext';
 import Search from './components/Search';
@@ -9,8 +9,8 @@ import { useMovies } from './hooks/useMovies';
 import { useTrendingMovies } from './hooks/useTrendingMovies';
 
 const AppContent = () => {
-  const { searchTerm, setSearchTerm } = React.useContext(MoviesContext);
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = React.useState(searchTerm);
+  const { searchTerm, setSearchTerm } = useContext(MoviesContext);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
   // Debounce the search term (wait 1000ms after last change)
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 1000, [searchTerm]);
@@ -23,8 +23,8 @@ const AppContent = () => {
       <div className="pattern" />
       <div className="wrapper">
         <header>
-          <img src={`${BASE_URL}/text-logo.png`} alt="Logo Text" />
-          <img src={`${BASE_URL}/hero.png`} alt="Hero Banner" />
+          <img src={`text-logo.png`} alt="Logo Text" />
+          <img src={`hero.png`} alt="Hero Banner" />
           <h1>
             Find <span className="text-gradient">Movies</span> You'll Enjoy without the Hassle
           </h1>
