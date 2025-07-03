@@ -6,7 +6,7 @@ import Spinner from './components/Spinner';
 import MovieCard from './components/MovieCard';
 import { BASE_URL } from './utils';
 import { useMovies } from './hooks/useMovies';
-import { useTrendingMovies } from './hooks/useTrendingMovies';
+import { useTvShows } from './hooks/useTvShows';
 
 const AppContent = () => {
   const { searchTerm, setSearchTerm } = useContext(MoviesContext);
@@ -16,7 +16,10 @@ const AppContent = () => {
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 1000, [searchTerm]);
 
   const { movieList, errorMessage, isLoading } = useMovies(debouncedSearchTerm);
-  const { trendingMovies } = useTrendingMovies();
+  const { tvShowList, errorMessage: tvShowErrorMessage, isLoading: tvShowIsLoading } = useTvShows(debouncedSearchTerm);
+
+  const randomMovies = [...movieList].sort(() => Math.random() - 0.5).slice(0, 5);
+  const randomTvShows = [...tvShowList].sort(() => Math.random() - 0.5).slice(0, 5);
 
   return (
     <main>
@@ -26,26 +29,38 @@ const AppContent = () => {
           <img src={`${BASE_URL}/text-logo.png`} alt="Logo Text" />
           <img src={`${BASE_URL}/hero.png`} alt="Hero Banner" />
           <h1>
-            Find <span className="text-gradient">Movies</span> You'll Enjoy without the Hassle
+            Find <span className="text-gradient">Movies & TV Shows</span> You'll Enjoy without the Hassle
           </h1>
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
 
-        {trendingMovies && trendingMovies.length > 0 && (
-          <section className="trending">
-            <h2>Trending Movies</h2>
-            <ul>
-              {trendingMovies.map((movie, index) => (
-                <li key={movie.$id}>
-                  <p>{index + 1}</p>
-                  <img src={movie.poster_url} alt={movie.title} />
-                </li>
-              ))}
-            </ul>
-          </section>
+        {!debouncedSearchTerm && (
+          <>
+            {randomMovies && randomMovies.length > 0 && (
+              <section className="trending">
+                <h2>Trending Movies</h2>
+                <ul>
+                  {randomMovies.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} />
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {randomTvShows && randomTvShows.length > 0 && (
+              <section className="trending mt-20">
+                <h2>Trending TV Shows</h2>
+                <ul>
+                  {randomTvShows.map((tvShow) => (
+                    <MovieCard key={tvShow.id} movie={tvShow} />
+                  ))}
+                </ul>
+              </section>
+            )}
+          </>
         )}
 
-        <section className="all-movies">
+        <section className={`all-movies ${!debouncedSearchTerm ? 'mt-20' : 'mt-10'}`}>
           <h2>All Movies</h2>
           {isLoading ? (
             <Spinner />
@@ -55,6 +70,21 @@ const AppContent = () => {
             <ul>
               {movieList.map((movie) => (
                 <MovieCard key={movie.id} movie={movie} />
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="all-movies mt-20">
+          <h2>All TV Shows</h2>
+          {tvShowIsLoading ? (
+            <Spinner />
+          ) : tvShowErrorMessage ? (
+            <p className="text-red-500">{tvShowErrorMessage}</p>
+          ) : (
+            <ul>
+              {tvShowList.map((tvShow) => (
+                <MovieCard key={tvShow.id} movie={tvShow} />
               ))}
             </ul>
           )}
