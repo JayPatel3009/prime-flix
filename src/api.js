@@ -18,3 +18,13 @@ export const fetchMovies = async (query = '') => {
   if (!response.ok) throw new Error('Failed to fetch movies');
   return response.json();
 };
+
+export const fetchTvShows = async (query = '') => {
+  const endpoint = query
+    ? `${API_BASE_URL}/search/tv?query=${encodeURIComponent(query)}`
+    : `${API_BASE_URL}/discover/tv?sort_by=popularity.desc`;
+
+  const response = await fetch(endpoint, API_OPTIONS);
+  if (!response.ok) throw new Error('Failed to fetch TV shows');
+  return response.json();
+};
